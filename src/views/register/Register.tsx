@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, StatusBar, TextInput, Button, ToastAndro
 import { RoundedButton } from '../../components/RoundedButton';
 import { COLORS } from '../../theme/AppTheme';
 import { useNavigation } from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack'
+import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../../App';
 
 export const RegisterScreem = () => {
@@ -16,15 +16,38 @@ export const RegisterScreem = () => {
 
             <View style={styles.logoContainer}>
                 <Image
-                    source={require('../../../assets/icons/logo.png')}
+                    source={require('../../../assets/icons/user_image.png')}
                     style={styles.logoImage}
                 />
-                <Text style={styles.logoText}>REGISTRO DE PAGOS</Text> {/*LOG PAY */}
+                <Text style={styles.logoText}>SELECCIONE UNA IMAGEN</Text> 
             </View>
 
             <View style={styles.form}>
                 <Text style={styles.formText}>INGRESAR</Text>
 
+                <View style={styles.formInput}>
+                    <Image
+                        style={styles.formIcon}
+                        source={require('../../../assets/icons/user.png')}
+                    />
+                    <TextInput
+                        style={styles.formTextInput}
+                        placeholder='Nombres'
+                        keyboardType='default'
+                    />
+                </View>
+
+                <View style={styles.formInput}>
+                    <Image
+                        style={styles.formIcon}
+                        source={require('../../../assets/icons/my_user.png')}
+                    />
+                    <TextInput
+                        style={styles.formTextInput}
+                        placeholder='Apellidos'
+                        keyboardType='default'
+                    />
+                </View>
 
                 <View style={styles.formInput}>
                     <Image
@@ -41,6 +64,19 @@ export const RegisterScreem = () => {
                 <View style={styles.formInput}>
                     <Image
                         style={styles.formIcon}
+                        source={require('../../../assets/icons/phone.png')}
+                    />
+                    <TextInput
+                        style={styles.formTextInput}
+                        placeholder='telefono'
+                        keyboardType='numeric'
+                    />
+                </View>
+                
+
+                <View style={styles.formInput}>
+                    <Image
+                        style={styles.formIcon}
                         source={require('../../../assets/icons/password.png')}
                     />
                     <TextInput
@@ -51,14 +87,25 @@ export const RegisterScreem = () => {
                     />
                 </View>
 
-                <View style={{ marginTop: 30 }}>
-                    <RoundedButton
-                        texto='LOGIN'
-                        Presionado={() => ToastAndroid.show('Holaaa', ToastAndroid.SHORT)}
+                <View style={styles.formInput}>
+                    <Image
+                        style={styles.formIcon}
+                        source={require('../../../assets/icons/confirm_password.png')}
                     />
-     
+                    <TextInput
+                        style={styles.formTextInput}
+                        placeholder='confirmar contraseña'
+                        keyboardType='default'
+                        secureTextEntry={true}
+                    />
                 </View>
 
+                <View style={{ marginTop: 30 }}>
+                    <RoundedButton
+                        texto='CONFIRMAR'
+                        Presionado={() => ToastAndroid.show('Holaaa', ToastAndroid.SHORT)}
+                    />
+                </View>
 
             </View>
 
@@ -81,7 +128,7 @@ const styles = StyleSheet.create({
     },
     form: {
         width: '100%',
-        height: '40%',
+        height: '70%',
         backgroundColor: 'white',
         position: 'absolute',
         bottom: 0,
@@ -124,11 +171,12 @@ const styles = StyleSheet.create({
     logoContainer: {
         position: 'absolute',
         alignSelf: 'center',
-        top: '15%'
+        top: '5%',
+        alignItems: 'center'
     },
     logoImage: {
-        width: 220,
-        height: 180
+        width: 100,
+        height: 100,
     },
     logoText: {
         color: 'white',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, StatusBar, TextInput, Button, ToastAndroid, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, ToastAndroid, TouchableOpacity } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
 import { COLORS } from '../../theme/AppTheme';
 import { useNavigation } from '@react-navigation/native';
@@ -12,8 +12,7 @@ export const HomeScreem = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="light-content" backgroundColor="black" />
-
+            
             {/*
           <Image
             source={require('./assets/images/chef.jpg')}
