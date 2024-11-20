@@ -1,8 +1,11 @@
 import * as React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreem } from './src/views/home/Home';
-import { RegisterScreem } from './src/views/register/Register';
+
+import { HomeScreem } from './src/Presentation/views/home/Home';
+import { RegisterScreem } from './src/Presentation/views/register/Register';
+
 import { StatusBar } from 'react-native';
 
 export type RootStackParamList = {
