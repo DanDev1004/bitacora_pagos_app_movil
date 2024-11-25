@@ -23,19 +23,17 @@ export const CustomTextInput = ({
 }:Props) => {
   return (
     <View style={styles.formInput}>
-                    <Image
-                        style={styles.formIcon}
-                        source={image}
-                    />
-                    <TextInput
-                        style={styles.formTextInput}
-                        placeholder={placeholder}
-                        keyboardType={KeyboardType}
-                        value={value}
-                        onChangeText={ value => onChangeText(property, value)}
-                        secureTextEntry={secureTextEntry}
-                    />
-                </View>
+        <Image style={styles.formIcon}
+               source={image}
+        />
+        <TextInput style={styles.formTextInput}
+                   placeholder={placeholder}
+                   keyboardType={KeyboardType}
+                   value={value}
+                   onChangeText={ value => onChangeText(property, value)}
+                   secureTextEntry={secureTextEntry}
+        />
+    </View>
   )
 }
 

@@ -10,11 +10,11 @@ interface Props {
 
 export const RoundedButton = ( {texto, Presionado}:Props ) => {
   return (
-    <TouchableOpacity
-      style={styles.roundendButton}
-      onPress={ () => Presionado() }
+    <TouchableOpacity style={styles.roundendButton}
+                      onPress={ () => Presionado() }
     >
       <Text style={styles.textButton}>{texto}</Text>
+      
     </TouchableOpacity>
   )
 }

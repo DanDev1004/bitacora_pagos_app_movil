@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
-import { apiBitacoraPagos } from '../../../Data/sources/remote/api/apiBitacoraPagos';
-apiBitacoraPagos 
+import { RegisterAuthUseCase } from '../../../Domain/useCases/auth/RegisterAuth';
+
 
 const RegisterViewModel = () => {
 
+    const [errorMessage, setErrorMessage] = useState("");
     const [values, setValues] = useState({
         nombres: '',
         apellidos: '',
@@ -14,23 +15,58 @@ const RegisterViewModel = () => {
     });
 
     const onChange = (property: string, value: any) =>{
-        setValues({ ...values, [property]: value }); 
+        setValues({ 
+            ...values, 
+            [property]: value 
+        }); 
     }
 
     const registrar = async () => {
-        try{
-            const response = await apiBitacoraPagos.post('/users/crear', values);
-            console.log('response: '+ JSON.stringify(response.data));
-        }catch(error){
-            console.log('error: '+error)
+        if(isValidForm()){
+            const response = await RegisterAuthUseCase(values);
+            console.log("RESULT: "+JSON.stringify(response));
+        }
+    }
+
+    const isValidForm = ():boolean => {
+        if(values.nombres===''){
+            setErrorMessage('Ingresa tu nombre');
+            return false;
         }
 
+        if(values.apellidos===''){
+            setErrorMessage('Ingresa tus apellidos');
+            return false;
+        }
+
+        if(values.email===''){
+            setErrorMessage('Ingresa tu email');
+            return false;
+        }
+
+        if(values.password===''){
+            setErrorMessage('Ingresa tu contraseña');
+            return false;
+        }
+
+        if(values.confirmPassword===''){
+            setErrorMessage('Ingresa la confirmación de la contraseña');
+            return false;
+        }
+
+        if(values.password != values.confirmPassword){
+            setErrorMessage('Las contraseñas no coinciden');
+            return false;
+        }
+        
+        return true;
     }
 
     return { 
         ...values,
         onChange,
-        registrar 
+        registrar,
+        errorMessage 
     }
 }
 
