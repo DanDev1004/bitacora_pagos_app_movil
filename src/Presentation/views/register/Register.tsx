@@ -9,7 +9,9 @@ import styles from './Styles';
 
 export const RegisterScreem = () => {
 
-    const { nombres, apellidos, email, telefono, password, confirmPassword, errorMessage, onChange, registrar } = useViewModel();
+    const { nombres, apellidos, email, telefono, password, confirmPassword, errorMessage, 
+            onChange, registrar
+         } = useViewModel();
 
     useEffect(() => {
         if(errorMessage!=''){
