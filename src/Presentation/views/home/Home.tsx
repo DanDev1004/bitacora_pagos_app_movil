@@ -1,28 +1,34 @@
 import React, { useEffect } from 'react'
 import { Text, View, Image, TouchableOpacity, ToastAndroid } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
-
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack'
+import { StackScreenProps } from '@react-navigation/stack'
 import { RootStackParamList } from '../../../../App';
 
 import useViewModel from './ViewModel';
 import { CustomTextInput } from '../../components/CustomTextInput';
 import styles from './Styles';
 
-export const HomeScreem = () => {
 
-    const { email, password, errorMessage,
+interface Props extends StackScreenProps<RootStackParamList,'HomeScreen'>{};
+export const HomeScreen = ({navigation, route}:Props) => {
+
+    const { email, password, errorMessage, user,
             onChange, login 
         } = useViewModel();
 
-    const navegacion = useNavigation<StackNavigationProp<RootStackParamList>>()
 
     useEffect(() => {
         if(errorMessage!=''){
             ToastAndroid.show(errorMessage, ToastAndroid.LONG);
         }
     }, [errorMessage])
+
+    useEffect(() => {
+      if(user?.id!==null && user?.id!==undefined){
+        navigation.replace('ProfileInfoScreen'); //el metodo replace establece como pantalla principal, de manera que si el usuario quiere retroceder una vez logeado, ya no aparezca la view de login, porque elimina el historial de pantallas
+      }
+    }, [user])
+    
 
     
 
@@ -87,7 +93,7 @@ export const HomeScreem = () => {
 
                 <View style={styles.formRegister}>
                     <Text>No tienes una cuenta?</Text>
-                    <TouchableOpacity onPress={() => navegacion.navigate('RegisterScreem')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
                         <Text style={styles.formRegisterText}>Registrate</Text>
                     </TouchableOpacity>
                 </View>

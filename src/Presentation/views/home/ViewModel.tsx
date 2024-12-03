@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { LoginAuthUseCase } from '../../../Domain/useCases/auth/LoginAuth';
+import { SaveUserLocalUseCase } from '../../../Domain/useCases/userLocal/SaveUserLocal';
+import { useUserLocal } from '../../hooks/useUserLocal';
 
 const HomeViewModel = () => {
 
@@ -10,6 +12,11 @@ const HomeViewModel = () => {
         password: '',
     });
 
+    const { user, getUserSession } = useUserLocal();
+    console.log('USUARIO SESION: '+JSON.stringify(user));
+
+
+
     const onChange = (property: string, value: any) => {
         setValues({ ...values, [property]: value }); //desestructurando: ...values = values.email, values.password
     }
@@ -18,8 +25,13 @@ const HomeViewModel = () => {
         if(isValidForm()) {
             const response = await LoginAuthUseCase(values.email, values.password);
             console.log("RESPONSE: " + JSON.stringify(response));
-            
-            if(!response.success) setErrorMessage(response.message);
+
+            if(!response.success){
+                setErrorMessage(response.message);
+            }else{
+                await SaveUserLocalUseCase(response.data); //almacenando usuario en sesion 
+                getUserSession(); //verificando estado de usuario, asi sabremos si esta logeado y dirigirlo a la pantalla principal
+            }
         }
     }
 
@@ -30,7 +42,7 @@ const HomeViewModel = () => {
         }
 
         if (values.password === '') {
-            setErrorMessage('Ingresa la password');
+            setErrorMessage('Ingresa password');
             return false;
         }
         return true;
@@ -40,7 +52,8 @@ const HomeViewModel = () => {
         ...values,
         onChange,
         login,
-        errorMessage
+        errorMessage,
+        user
     }
 }
 
