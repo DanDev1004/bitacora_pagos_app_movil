@@ -7,12 +7,16 @@ import { HomeScreen } from './src/Presentation/views/home/Home';
 import { RegisterScreen } from './src/Presentation/views/register/Register';
 
 import { StatusBar } from 'react-native';
-import { ProfileInfoScreen } from './src/Presentation/views/profile/info/ProfileInfo';
+import { AdminTabsNavigator } from './src/Presentation/navigator/AdminTabsNavigator';
+import { EspectadorTabsNavigator } from './src/Presentation/navigator/EspectadorTabsNavigator';
+import { AfiliadoTabsNavigator } from './src/Presentation/navigator/AfiliadoTabsNavigator';
 
 export type RootStackParamList = {
   HomeScreen: undefined,
   RegisterScreen: undefined,
-  ProfileInfoScreen: undefined
+  AdminTabsNavigator: undefined,
+  AfiliadoTabsNavigator: undefined,
+  EspectadorTabsNavigator: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -41,10 +45,19 @@ const App = () => {
         />
 
         <Stack.Screen
-          name="ProfileInfoScreen"
-          component={ProfileInfoScreen}
+          name="AdminTabsNavigator"
+          component={AdminTabsNavigator}
         />
 
+        <Stack.Screen
+          name="AfiliadoTabsNavigator"
+          component={AfiliadoTabsNavigator}
+        />
+
+        <Stack.Screen
+          name="EspectadorTabsNavigator"
+          component={EspectadorTabsNavigator}
+        />
 
       </Stack.Navigator>
     </NavigationContainer>

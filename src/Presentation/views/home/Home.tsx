@@ -8,29 +8,43 @@ import useViewModel from './ViewModel';
 import { CustomTextInput } from '../../components/CustomTextInput';
 import styles from './Styles';
 
-
-interface Props extends StackScreenProps<RootStackParamList,'HomeScreen'>{};
-export const HomeScreen = ({navigation, route}:Props) => {
+interface Props extends StackScreenProps<RootStackParamList, 'HomeScreen'> { };
+export const HomeScreen = ({ navigation, route }: Props) => {
 
     const { email, password, errorMessage, user,
-            onChange, login 
-        } = useViewModel();
+        onChange, login
+    } = useViewModel();
 
 
     useEffect(() => {
-        if(errorMessage!=''){
+        if (errorMessage != '') {
             ToastAndroid.show(errorMessage, ToastAndroid.LONG);
         }
     }, [errorMessage])
 
     useEffect(() => {
-      if(user?.id!==null && user?.id!==undefined){
-        navigation.replace('ProfileInfoScreen'); //el metodo replace establece como pantalla principal, de manera que si el usuario quiere retroceder una vez logeado, ya no aparezca la view de login, porque elimina el historial de pantallas
-      }
-    }, [user])
-    
+        if (user?.session_token !== null && user?.session_token !== undefined) {
+            //el metodo replace establece como pantalla principal, de manera que si el usuario quiere retroceder una vez logeado, ya no aparezca la view de login, porque elimina el historial de pantallas
+            const userRoles = user?.roles || [];
+            const AdminrRol = userRoles.some(rol => rol.name === "ADMIN");
+            const AfiliadoRol = userRoles.some(rol => rol.name === "AFILIADO");
+            const EspectadorRol = userRoles.some(rol => rol.name === "ESPECTADOR");
 
-    
+            console.log("Roles:", { AdminrRol, AfiliadoRol, EspectadorRol })
+
+            if (AdminrRol) {
+                navigation.replace('AdminTabsNavigator');
+            } else if (AfiliadoRol) {
+                navigation.replace('AfiliadoTabsNavigator');
+            } else if (EspectadorRol) {;
+                navigation.replace('EspectadorTabsNavigator');
+            }
+        }
+
+    }, [user])
+
+
+
 
     return (
         <View style={styles.container}>

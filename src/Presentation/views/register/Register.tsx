@@ -26,9 +26,11 @@ export const RegisterScreen = ({ navigation, route }: Props) => {
     }, [errorMessage])
 
     useEffect(() => {
+ 
         if (user?.session_token !== null && user?.session_token !== undefined) {
-            navigation.replace('ProfileInfoScreen');
+            navigation.replace('EspectadorTabsNavigator'); 
         }
+
     }, [user])
 
     return (
