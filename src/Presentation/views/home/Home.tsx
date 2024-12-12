@@ -23,7 +23,7 @@ export const HomeScreen = ({ navigation, route }: Props) => {
     }, [errorMessage])
 
     useEffect(() => {
-        if (user?.session_token !== null && user?.session_token !== undefined) {
+        if (user?.session_token !== null && user?.session_token !== undefined && user?.session_token!=="") {
             //el metodo replace establece como pantalla principal, de manera que si el usuario quiere retroceder una vez logeado, ya no aparezca la view de login, porque elimina el historial de pantallas
             const userRoles = user?.roles || [];
             const AdminrRol = userRoles.some(rol => rol.name === "ADMIN");

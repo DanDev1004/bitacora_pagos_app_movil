@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { LoginAuthUseCase } from '../../../Domain/useCases/auth/LoginAuth';
 import { SaveUserLocalUseCase } from '../../../Domain/useCases/userLocal/SaveUserLocal';
 import { useUserLocal } from '../../hooks/useUserLocal';
+import { UserContext } from '../../context/UserContext';
 
 const HomeViewModel = () => {
 
@@ -12,7 +13,8 @@ const HomeViewModel = () => {
         password: '',
     });
 
-    const { user, getUserSession } = useUserLocal();
+    // const { user, getUserSession } = useUserLocal(); //ya no usaremos hook, sino un Context
+    const { user, saveUserSession } = useContext( UserContext );
     console.log('USUARIO SESION: '+JSON.stringify(user));
 
 
@@ -29,8 +31,9 @@ const HomeViewModel = () => {
             if(!response.success){
                 setErrorMessage(response.message);
             }else{
-                await SaveUserLocalUseCase(response.data); //almacenando usuario en sesion 
-                getUserSession(); //verificando estado de usuario, asi sabremos si esta logeado y dirigirlo a la pantalla principal
+                // await SaveUserLocalUseCase(response.data); //almacenando usuario en sesion 
+                // getUserSession(); //verificando estado de usuario, asi sabremos si esta logeado y dirigirlo a la pantalla principal
+                saveUserSession(response.data);
             }
         }
     }
