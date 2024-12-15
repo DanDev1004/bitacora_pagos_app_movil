@@ -1,31 +1,34 @@
-import { Children, createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { User } from "../../Domain/entities/User";
 import { SaveUserLocalUseCase } from "../../Domain/useCases/userLocal/SaveUserLocal";
 import { GetUserLocalUseCase } from "../../Domain/useCases/userLocal/GetUserLocal";
 import { RemoveUserLocalUseCase } from "../../Domain/useCases/userLocal/RemoveUserLocal";
 
 export const userInitialState: User = {
-    nombres:            "",
-    apellidos:          "",
-    telefono:           "",
-    email:              "",
-    password:           "",
-    confirmPassword:    "",
-    imagen:             "",
-    session_token:      "",
+    id:                 '',
+    nombres:            '',
+    apellidos:          '',
+    telefono:           '',
+    email:              '',
+    password:           '',
+    confirmPassword:    '',
+    imagen:             '',
+    session_token:      '',
     roles:              []
 }
 
-export interface UserContextProps{
-    user: User,
+export interface UserContextProps {
+    user: User;
     saveUserSession: (user: User) => Promise<void>;
     getUserSession: () => Promise<void>;
     removeUserSession: () => Promise<void>;
 }
 
+
 export const UserContext = createContext( {} as UserContextProps); 
 
 export const UserProvider = ({Children}: any) =>{
+    
     const [user, setUser] = useState(userInitialState);
 
     useEffect(() => {
@@ -38,13 +41,14 @@ export const UserProvider = ({Children}: any) =>{
         setUser(user);
     }
 
-    const getUserSession = async() => {
+    const getUserSession = async () => {
         const user = await GetUserLocalUseCase();
+        console.log("Stored User in Context:", user);
         setUser(user);
     }
 
-    const removeUserSession = async()=>{
-        await removeUserSession();
+    const removeUserSession = async () => {
+        await RemoveUserLocalUseCase();
         setUser(userInitialState);
     }
 

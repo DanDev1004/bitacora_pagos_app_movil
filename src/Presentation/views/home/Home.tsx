@@ -2,15 +2,15 @@ import React, { useEffect } from 'react'
 import { Text, View, Image, TouchableOpacity, ToastAndroid } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootStackParamList } from '../../../../App';
+import { RootStackParamList } from '../../navigator/MainStackNavigator';
 
 import useViewModel from './ViewModel';
 import { CustomTextInput } from '../../components/CustomTextInput';
 import styles from './Styles';
 
-interface Props extends StackScreenProps<RootStackParamList, 'HomeScreen'> { };
-export const HomeScreen = ({ navigation, route }: Props) => {
 
+interface Props extends StackScreenProps<RootStackParamList, 'HomeScreen'>{};
+export const HomeScreen = ({ navigation, route }: Props) => {
     const { email, password, errorMessage, user,
         onChange, login
     } = useViewModel();
@@ -23,7 +23,8 @@ export const HomeScreen = ({ navigation, route }: Props) => {
     }, [errorMessage])
 
     useEffect(() => {
-        if (user?.session_token !== null && user?.session_token !== undefined && user?.session_token!=="") {
+        console.log("USER EN HomeViewModel:", user);
+        if (user?.session_token !== null && user?.session_token !== undefined && user?.session_token!=='') {
             //el metodo replace establece como pantalla principal, de manera que si el usuario quiere retroceder una vez logeado, ya no aparezca la view de login, porque elimina el historial de pantallas
             const userRoles = user?.roles || [];
             const AdminrRol = userRoles.some(rol => rol.name === "ADMIN");

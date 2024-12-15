@@ -6,7 +6,7 @@ import styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import { RoundedButton } from '../../../components/RoundedButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { RootStackParamList } from '../../../../../App';
+import { RootStackParamList } from '../../../navigator/MainStackNavigator';
 
 export const ProfileInfoScreen = () => {
 
