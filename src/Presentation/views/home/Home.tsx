@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { Text, View, Image, TouchableOpacity, ToastAndroid } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
 import { StackScreenProps } from '@react-navigation/stack'
+import useViewModel from './ViewModel';
 import { RootStackParamList } from '../../navigator/MainStackNavigator';
 
-import useViewModel from './ViewModel';
 import { CustomTextInput } from '../../components/CustomTextInput';
 import styles from './Styles';
 
@@ -14,6 +14,7 @@ export const HomeScreen = ({ navigation, route }: Props) => {
     const { email, password, errorMessage, user,
         onChange, login
     } = useViewModel();
+    console.log("USER FROM CONTEXT: ", user);
 
 
     useEffect(() => {

@@ -21,7 +21,7 @@ const apiBitacoraPagosForImage = axios.create({
 
 apiBitacoraPagos.interceptors.request.use(
     async(config) => {
-        const data = await LocalStorage().getItem('@user');
+        const data = await LocalStorage().getItem('user');
         if(data){
             const user: User = JSON.parse(data as any);
             config.headers!['Authorization'] = user?.session_token!
@@ -32,7 +32,7 @@ apiBitacoraPagos.interceptors.request.use(
 
 apiBitacoraPagosForImage.interceptors.request.use(
     async(config) => {
-        const data = await LocalStorage().getItem('@user');
+        const data = await LocalStorage().getItem('user');
         if(data){
             const user: User = JSON.parse(data as any);
             config.headers!['Authorization'] = user?.session_token!

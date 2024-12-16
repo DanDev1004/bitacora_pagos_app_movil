@@ -5,16 +5,16 @@ import { GetUserLocalUseCase } from "../../Domain/useCases/userLocal/GetUserLoca
 import { RemoveUserLocalUseCase } from "../../Domain/useCases/userLocal/RemoveUserLocal";
 
 export const userInitialState: User = {
-    id:                 '',
-    nombres:            '',
-    apellidos:          '',
-    telefono:           '',
-    email:              '',
-    password:           '',
-    confirmPassword:    '',
-    imagen:             '',
-    session_token:      '',
-    roles:              []
+    id: '',
+    nombres: '',
+    apellidos: '',
+    telefono: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    imagen: '',
+    session_token: '',
+    roles: [],
 }
 
 export interface UserContextProps {
@@ -25,18 +25,20 @@ export interface UserContextProps {
 }
 
 
-export const UserContext = createContext( {} as UserContextProps); 
+export const UserContext = createContext({} as UserContextProps);
 
-export const UserProvider = ({Children}: any) =>{
-    
+export const UserProvider = ({ children }: any) => {
+
     const [user, setUser] = useState(userInitialState);
 
     useEffect(() => {
-     getUserSession();
+        console.log("UserProvider Mounted");
+        getUserSession();
     }, [])
-    
+
 
     const saveUserSession = async (user: User) => {
+        console.log("Saving User:", user);
         await SaveUserLocalUseCase(user);
         setUser(user);
     }
@@ -52,14 +54,14 @@ export const UserProvider = ({Children}: any) =>{
         setUser(userInitialState);
     }
 
-    return(
+    return (
         <UserContext.Provider value={{
             user,
             saveUserSession,
             getUserSession,
             removeUserSession
         }}>
-            { Children }
+            {children}
         </UserContext.Provider>
     )
 }
